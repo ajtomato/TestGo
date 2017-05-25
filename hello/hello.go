@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"ajtomato.gmail.com/test/stringutil"
+)
 
 func main() {
-    fmt.Printf("hello, world\n")
+	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 }

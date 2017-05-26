@@ -9,11 +9,17 @@ import (
 // A var declaration can include initializers, one per variable.
 var a, b int = 1, 2
 
+var (
+	c int
+	d bool
+	e string
+)
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
 	var c, python, java = true, false, "no!"
 
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
-	fmt.Printf("%v, %v, %v", c, python, java)
+	fmt.Printf("%v, %v, %v, %v, %v", c, python, java, e, d)
 }

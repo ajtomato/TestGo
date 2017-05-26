@@ -18,6 +18,25 @@ var (
 // Constants cannot be declared using the := syntax.
 const pi = 3.14
 
+func loop() {
+	sum := 0
+	// for i := 0, j := true is NOT allowed
+	for i, j := 0, true; i < 10 && j; i++ {
+		sum += i
+	}
+	fmt.Println(sum)
+
+	sum = 1
+	for sum < 1000 {
+		sum += sum
+	}
+	fmt.Println(sum)
+
+	// loops forever
+	// for {
+	// }
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -27,5 +46,7 @@ func main() {
 	const w = "World"
 
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
-	fmt.Printf("%v, %v, %v, %v, %v", c, python, java, e, d)
+	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
+
+	loop()
 }

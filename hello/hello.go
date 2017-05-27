@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"runtime"
 	"time"
 
@@ -202,6 +203,15 @@ func testMap() {
 	}
 }
 
+func (v Vertex) abs() float64 {
+	return math.Sqrt(float64(v.X*v.X + v.Y*v.Y))
+}
+
+func testMethod() {
+	v := Vertex{3, 4}
+	fmt.Println(v.abs())
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -213,5 +223,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testMap()
+	testMethod()
 }

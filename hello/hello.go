@@ -101,6 +101,57 @@ func testStruct() {
 	fmt.Println(*p)
 }
 
+func testSlice() {
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	// The capacity of a slice is the number of elements in the underlying
+	// array, counting from the first element in the slice.
+	s := primes[1:4]
+	fmt.Println(s, len(s), cap(s))
+
+	// Please note that s[1:4] is larger than the length of s.
+	s = s[1:4]
+	fmt.Println(s)
+	s = s[:2]
+	fmt.Println(s)
+	s = s[1:]
+	fmt.Println(s)
+	s = s[:]
+	fmt.Println(s)
+
+	t := []struct {
+		i int
+		b bool
+	}{
+		{2, true},
+		{3, false},
+		{5, true},
+		{7, true},
+		{11, false},
+		{13, true},
+	}
+	fmt.Println(t)
+
+	var z []int
+	fmt.Println(z, len(z), cap(z))
+	if z == nil {
+		fmt.Println("nil!")
+	}
+
+	w := make([]int, 4)
+	y := make([]int, 3, 5)
+	fmt.Println(w, len(w), cap(w))
+	fmt.Println(y, len(y), cap(y))
+
+	w = w[0:3]
+	fmt.Printf("%p\n", &w[0])
+	// Change the element in the underlying array
+	w = append(w, 3)
+	fmt.Printf("%p\n", &w[0])
+	// Make a new array
+	w = append(w, 3, 3, 3)
+	fmt.Printf("%p\n", &w[0])
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -112,5 +163,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testStruct()
+	testSlice()
 }

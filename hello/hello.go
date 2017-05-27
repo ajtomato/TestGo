@@ -207,9 +207,16 @@ func (v Vertex) abs() float64 {
 	return math.Sqrt(float64(v.X*v.X + v.Y*v.Y))
 }
 
+func (v *Vertex) scale(s int) {
+	v.X *= s
+	v.Y *= s
+}
+
 func testMethod() {
 	v := Vertex{3, 4}
 	fmt.Println(v.abs())
+	v.scale(2)
+	fmt.Println(v)
 }
 
 func main() {

@@ -75,6 +75,17 @@ func testSwitch() {
 	}
 }
 
+func testDefer() {
+	fmt.Println("counting")
+
+	// Deferred function calls are pushed onto a stack.
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+
+	fmt.Println("done")
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -86,5 +97,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testSwitch()
+	testDefer()
 }

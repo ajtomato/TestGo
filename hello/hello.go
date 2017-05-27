@@ -86,6 +86,21 @@ func testDefer() {
 	fmt.Println("done")
 }
 
+// Vertex is for test.
+type Vertex struct {
+	X int
+	Y int
+}
+
+func testStruct() {
+	v := Vertex{1, 2}
+	p := &v
+	fmt.Println(v.X, p.Y)
+
+	p = &Vertex{Y: 3}
+	fmt.Println(*p)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -97,5 +112,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testDefer()
+	testStruct()
 }

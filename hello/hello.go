@@ -165,6 +165,43 @@ func testRange() {
 	}
 }
 
+func testMap() {
+	var m map[string]Vertex
+	if m == nil {
+		fmt.Println("A declared map is nil")
+	}
+	// Elements can NOT be inserted map without make
+	m = make(map[string]Vertex)
+	m["Hello"] = Vertex{1, 2}
+	fmt.Println(m)
+
+	var n = map[string]Vertex{
+		"hello": Vertex{1, 2},
+		"world": Vertex{3, 4},
+	}
+	fmt.Println(n)
+
+	var l = map[string]Vertex{
+		"hello": {1, 2},
+		"world": {3, 4},
+	}
+	fmt.Println(l)
+	delete(l, "hello")
+	fmt.Println(l)
+	elem, ok := l["hello"]
+	if ok {
+		fmt.Println(elem)
+	} else {
+		fmt.Println("No hello elment", elem)
+	}
+	elem, ok = l["world"]
+	if ok {
+		fmt.Println(elem)
+	} else {
+		fmt.Println("No world elment")
+	}
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -176,5 +213,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testRange()
+	testMap()
 }

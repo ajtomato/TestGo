@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"runtime"
+	"time"
 
 	"ajtomato.gmail.com/test/stringutil"
 )
@@ -37,6 +39,42 @@ func loop() {
 	// }
 }
 
+func testSwitch() {
+	fmt.Print("Go runs on ")
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows...
+		fmt.Printf("%s.", os)
+	}
+
+	// Switch cases evaluate cases from top to bottom, stopping when a case
+	// succeeds.
+	i, j := 0, 3
+	switch j {
+	case i + 3:
+		fmt.Println("switch case 1")
+		i = 3
+	case i:
+		fmt.Println("switch case 2")
+	}
+
+	// long if-then-else
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -48,5 +86,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	loop()
+	testSwitch()
 }

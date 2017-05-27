@@ -152,6 +152,19 @@ func testSlice() {
 	fmt.Printf("%p\n", &w[0])
 }
 
+func testRange() {
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+	for _, v := range pow {
+		fmt.Printf("%d\n", v)
+	}
+	for i := range pow {
+		fmt.Printf("%d\n", pow[i])
+	}
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -163,5 +176,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testSlice()
+	testRange()
 }

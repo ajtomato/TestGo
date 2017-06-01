@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"math"
+	"os"
 	"runtime"
+	"strings"
 	"time"
 
 	"ajtomato.gmail.com/test/stringutil"
@@ -289,6 +292,22 @@ func testError() {
 	}
 }
 
+type myReader struct {
+	s io.Reader
+}
+
+func (r *myReader) Read(b []byte) (int, error) {
+	c, err := r.s.Read(b)
+	// Process b here
+	return c, err
+}
+
+func testReader() {
+	src := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := myReader{src}
+	io.Copy(os.Stdout, &r)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -300,5 +319,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testError()
+	testReader()
 }

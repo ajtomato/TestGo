@@ -308,6 +308,14 @@ func testReader() {
 	io.Copy(os.Stdout, &r)
 }
 
+func testGoroutine() {
+	for i := 0; i < 5; i++ {
+		go fmt.Println(i)
+	}
+	fmt.Println("testGoroutine")
+	time.Sleep(100 * time.Millisecond)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -319,5 +327,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testReader()
+	testGoroutine()
 }

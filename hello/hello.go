@@ -255,6 +255,16 @@ func testInterface() {
 	} else {
 		fmt.Println("i is NOT Vertex")
 	}
+
+	// type switch
+	switch k := i.(type) {
+	case Vertex:
+		fmt.Printf("(%v, %T)\n", k, k)
+	case int:
+		fmt.Printf("(%v, %T)\n", k, k)
+	default:
+		fmt.Println("Unknown type")
+	}
 }
 
 func main() {

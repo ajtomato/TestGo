@@ -203,7 +203,13 @@ func testMap() {
 	}
 }
 
-func (v Vertex) abs() float64 {
+func (v *Vertex) abs() float64 {
+	// It is common to write methods that gracefully handle being called with a
+	// nil receiver.
+	if v == nil {
+		fmt.Println("v == nil")
+		return 0.0
+	}
 	return math.Sqrt(float64(v.X*v.X + v.Y*v.Y))
 }
 
@@ -219,6 +225,30 @@ func testMethod() {
 	fmt.Println(v)
 }
 
+type abser interface {
+	abs() float64
+}
+
+func testInterface() {
+	v := Vertex{3, 4}
+	var a abser
+	// a is NOT initialized, so it cannot point to any concrete type.
+	fmt.Printf("%v\n", a)
+	var tmp *Vertex
+	// a is initialized, but the value is nil and there is a concrete type.
+	a = tmp
+	fmt.Printf("%v, %v, %T\n", a.abs(), a, a)
+	// There is a concrete type for each interface value.
+	a = &v
+	fmt.Printf("%v, %v, %T\n", a.abs(), a, a)
+
+	// The empty interface may hold values of any type.
+	var i interface{}
+	fmt.Printf("(%v, %T)\n", i, i)
+	i = v
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -230,5 +260,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testMethod()
+	testInterface()
 }

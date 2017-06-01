@@ -247,6 +247,14 @@ func testInterface() {
 	fmt.Printf("(%v, %T)\n", i, i)
 	i = v
 	fmt.Printf("(%v, %T)\n", i, i)
+
+	// type assertion
+	j, ok := i.(Vertex)
+	if ok {
+		fmt.Printf("(%v, %T)\n", j, j)
+	} else {
+		fmt.Println("i is NOT Vertex")
+	}
 }
 
 func main() {

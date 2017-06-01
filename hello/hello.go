@@ -392,6 +392,23 @@ func testSelect() {
 	fibonacciWithSelect(c, quit)
 }
 
+func defaultSelection() {
+	tick := time.Tick(100 * time.Millisecond)
+	boom := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case <-tick:
+			fmt.Println("tick.")
+		case <-boom:
+			fmt.Println("BOOM!")
+			return
+		default:
+			fmt.Println("    .")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -403,5 +420,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testSelect()
+	defaultSelection()
 }

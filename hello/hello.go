@@ -267,6 +267,28 @@ func testInterface() {
 	}
 }
 
+type myError struct {
+	when time.Time
+	what string
+}
+
+func (err myError) Error() string {
+	return fmt.Sprintf("Error[%v]: %s\n", err.when, err.what)
+}
+
+func triggerError() error {
+	return myError{time.Now(), "Huge Error"}
+}
+
+func testError() {
+	err := triggerError()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("No error")
+	}
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -278,5 +300,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testInterface()
+	testError()
 }

@@ -335,6 +335,16 @@ func testChannel() {
 	fmt.Println(x, y, x+y)
 }
 
+func testBufferedChannel() {
+	// Sends to a buffered channel block only when the buffer is full. Receives
+	// block when the buffer is empty.
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 2
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -346,5 +356,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testChannel()
+	testBufferedChannel()
 }

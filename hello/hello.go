@@ -367,6 +367,31 @@ func closeChannel() {
 	}
 }
 
+func fibonacciWithSelect(c, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func testSelect() {
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacciWithSelect(c, quit)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -378,5 +403,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	closeChannel()
+	testSelect()
 }

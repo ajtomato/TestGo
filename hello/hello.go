@@ -39,6 +39,15 @@ func loop() {
 	}
 	fmt.Println(sum)
 
+	// Go has no comma operator and ++ and -- are statements not expressions.
+	// Thus if you want to run multiple variables in a for you should use
+	// parallel assignment (although that precludes ++ and --).
+	a := []int{1, 2, 3}
+	for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+		a[i], a[j] = a[j], a[i]
+	}
+	fmt.Println(a)
+
 	// loops forever
 	// for {
 	// }
@@ -450,5 +459,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testMutex()
+	loop()
 }

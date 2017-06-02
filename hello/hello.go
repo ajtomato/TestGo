@@ -87,6 +87,12 @@ func testSwitch() {
 	default:
 		fmt.Println("Good evening.")
 	}
+
+	k := '?'
+	switch k {
+	case ' ', '?', '&', '=', '#', '+', '%':
+		fmt.Println("Match")
+	}
 }
 
 func testDefer() {
@@ -459,5 +465,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	loop()
+	testSwitch()
 }

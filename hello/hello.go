@@ -7,6 +7,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 
 	"ajtomato.gmail.com/test/stringutil"
@@ -409,6 +410,35 @@ func defaultSelection() {
 	}
 }
 
+type safeCounter struct {
+	v   map[string]int
+	mux sync.Mutex
+}
+
+func (c *safeCounter) inc(key string) {
+	c.mux.Lock()
+	defer c.mux.Unlock()
+
+	c.v[key]++
+}
+
+func (c *safeCounter) get(key string) int {
+	c.mux.Lock()
+	defer c.mux.Unlock()
+
+	return c.v[key]
+}
+
+func testMutex() {
+	c := safeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.inc("somekey")
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println(c.get("somekey"))
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -420,5 +450,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	defaultSelection()
+	testMutex()
 }

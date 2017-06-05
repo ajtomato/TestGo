@@ -472,6 +472,24 @@ func testNamedResult() {
 	fmt.Printf("Big: %v, Small: %v\n", x, y)
 }
 
+type byteSize float64
+
+const (
+	_           = iota // ignore first value by assigning to blank identifier
+	kB byteSize = 1 << (10 * iota)
+	mB
+	gB
+	tB
+	pB
+	eB
+	zB
+	yB
+)
+
+func testConst() {
+	fmt.Println(kB, mB, gB, tB, pB, eB, zB, yB)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -483,5 +501,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testNamedResult()
+	testConst()
 }

@@ -454,6 +454,24 @@ func testMutex() {
 	fmt.Println(c.get("somekey"))
 }
 
+func namedResult(x, y int) (m, n int) {
+	if x > y {
+		m = x
+		n = y
+	} else {
+		m = y
+		n = x
+	}
+	return
+}
+
+func testNamedResult() {
+	x, y := namedResult(2, 1)
+	fmt.Printf("Big: %v, Small: %v\n", x, y)
+	x, y = namedResult(7, 8)
+	fmt.Printf("Big: %v, Small: %v\n", x, y)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -465,5 +483,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testSwitch()
+	testNamedResult()
 }

@@ -14,7 +14,7 @@ import (
 )
 
 // A var declaration can include initializers, one per variable.
-var a, b int = 1, 2
+var a, b int = initA(), 2
 
 var (
 	c int
@@ -488,6 +488,17 @@ const (
 
 func testConst() {
 	fmt.Println(kB, mB, gB, tB, pB, eB, zB, yB)
+}
+
+func initA() int {
+	fmt.Println("a is initialized")
+	return 1
+}
+
+func init() {
+	if a == 1 {
+		fmt.Println("init is called after var declaration is called")
+	}
 }
 
 func main() {

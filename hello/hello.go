@@ -248,6 +248,10 @@ type abser interface {
 	abs() float64
 }
 
+type embeddingAbser interface {
+	abser
+}
+
 func testInterface() {
 	v := Vertex{3, 4}
 	var a abser
@@ -310,6 +314,11 @@ func testError() {
 
 type myReader struct {
 	s io.Reader
+}
+
+type myErrorReader struct {
+	*myError
+	*myReader
 }
 
 func (r *myReader) Read(b []byte) (int, error) {
@@ -501,6 +510,17 @@ func init() {
 	}
 }
 
+func testEmbedding() {
+	v := Vertex{3, 4}
+	var a embeddingAbser
+	a = &v
+	fmt.Printf("%v, %v, %T\n", a.abs(), a, a)
+
+	src := strings.NewReader("Lbh penpxrq gur pbqr!")
+	er := myErrorReader{&myError{time.Now(), "Huge Error"}, &myReader{src}}
+	fmt.Println(er.myError.when, er.when)
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -512,5 +532,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testConst()
+	testEmbedding()
 }

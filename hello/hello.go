@@ -521,6 +521,21 @@ func testEmbedding() {
 	fmt.Println(er.myError.when, er.when)
 }
 
+func triggerPanic() {
+	panic("triggerPanic")
+}
+
+func testPanic() {
+	// This must be before the panic is triggered.
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("work failed:", err)
+		}
+	}()
+
+	triggerPanic()
+}
+
 func main() {
 	// If an initializer is present, the type can be omitted. Please note that
 	// c, python, java have different types.
@@ -532,5 +547,5 @@ func main() {
 	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
 	fmt.Printf("%v, %v, %v, %v, %v\n", c, python, java, e, d)
 
-	testEmbedding()
+	testPanic()
 }
